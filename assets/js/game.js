@@ -151,90 +151,18 @@ game.States.mainMenu = function() {
         }, this);
     };
     this.clickButton = function() {
-        var reS = /^[demp]{1}[0-9]{7}$/i;
-        var reT = /^[t]{1}[0-9]{5}$/i;
-        if(!reS.test(idInput.value) && !reT.test(idInput.value)) {
-            alert("NID格式錯誤，請重新輸入。");
-            idInput.setText("");
-            idInput.endFocus();
-            nameInput.endFocus();
-            idInput.startFocus();
-        }
-        else if(nameInput.value == "") {
-            alert("請輸入暱稱。");
-            idInput.endFocus();
-            nameInput.endFocus();
-            nameInput.startFocus();
-        }
-        else{
+        
+        
+       
             var responseData;
             startButton.visible = false;
             game.glbalConfig.nid = idInput.value;
             game.glbalConfig.name = nameInput.value;
-            $.ajax({
-                type:"post",
-                data:{
-                    "method":"read",
-                    "NID":game.glbalConfig.nid
-                },
-                url:game.glbalConfig.googleURL,
-                success:function(e) {
-                    if(e == "nodata") {
-                        $.ajax({
-                            type:"post",
-                            data:{
-                                "method":"write",
-                                "NID":game.glbalConfig.nid,
-                                "stage":1,
-                                "ans1":"因為有人不改後端所以要用這行代表第一關然後我後面的關卡全部都要往後移一格"
-                            },
-                            url:game.glbalConfig.googleURL,
-                            success:function(e) {
-                                game.glbalConfig.completeChapter = 0;
-                                game.state.start("chapterMenu");
-                            },
-                            error:function() {
-                                console.log("傳送資料失敗");
-                            }
-                        });
-                    }
-                    else {
-                        var temp = parseInt(e, 10);
-                        if(temp == 1) {
-                            temp = 0;
-                        }
-                        else if(2 <= temp && temp <= 3) {
-                            temp = 1;
-                        }
-                        else if(4 <= temp && temp <= 6) {
-                            temp = 2;
-                        }
-                        else {
-                            temp = 3;
-                        }
-                        $.ajax({
-                            type:"post",
-                            data:{
-                                "NID":game.glbalConfig.nid
-                            },
-                            url:"http://140.134.208.85:8787/",
-                            success:function(e) {
-                                game.glbalConfig.realName = e;
-                            },
-                            error:function() {
-                                game.glbalConfig.realName = "NULL";
-                            }
-                        });
-                        game.glbalConfig.completeChapter = temp;
-                        game.state.start("chapterMenu");
-                    }
-                },
-                error:function() {
-                    alert("讀取進度失敗");
-                    startButton.visible = true;
-                }
-            });
-        }
+             game.glbalConfig.completeChapter = 0;
+             game.state.start("chapterMenu");
+               
+               
+        
     };
 };
 
