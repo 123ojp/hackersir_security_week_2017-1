@@ -127,9 +127,7 @@ game.States.mainMenu = function() {
         game.add.image(0, 0, "titlebg");
         var text = game.add.text(game.world.centerX, 150, "HackerRPG", menuTextStyle);
         text.anchor.setTo(0.5);
-        idInput = game.add.inputField(game.world.centerX-250, 300, idInputStyle);
-        idInput.blockInput = false;
-        idInput.focusOutOnEnter = false;
+        
         nameInput = game.add.inputField(game.world.centerX-250, 450, nameInputStyle);
         nameInput.blockInput = false;
         nameInput.focusOutOnEnter = false;
